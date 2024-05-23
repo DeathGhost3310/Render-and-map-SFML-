@@ -6,8 +6,8 @@
 #include "Render.h"
 #include "Tile.h"
 #pragma once
-std::shared_ptr<sf::RenderWindow> window(std::make_shared<sf::RenderWindow>(sf::VideoMode(1366, 768), "SFML works!"));
-
+std::shared_ptr<sf::RenderWindow> window(std::make_shared<sf::RenderWindow>(sf::VideoMode(800, 600), "SFML works!"));
+sf::Sprite sprite;
 
 Map m_map;
 Render m_render(window);
@@ -20,19 +20,26 @@ int main()
     image.loadFromFile("images/block.png");
     sf::Texture texture;
     texture.loadFromImage(image);
-    sf::Sprite *sprite = new sf::Sprite;
-    sprite->setTexture(texture);
-    sprite->setPosition({ 50, 50 });
+    sprite.setTexture(texture);
+    sprite.setPosition({ 50, 50 });
+
+    
+    
+    //sf::Sprite *ptr_sprite = new sf::Sprite(sprite);
     
     for (int i = 0;i < 50;i++) {
-        m_map.add_tile({i * tile_size_x, 0}, sprite);
+        m_map.add_tile(sf::Vector2f(i * tile_size_x, 0), sprite);
     
-        m_map.add_tile({0, i * tile_size_y}, sprite);
+        m_map.add_tile(sf::Vector2f(0, i * tile_size_y), sprite);
     }
+    //m_map.add_tile({ 50, 50 }, sprite);
+    //m_map.add_tile({ 50, 100 }, sprite);
+    //m_map.add_tile({ 50, 150 }, sprite);
+    //m_map.add_tile({ 50, 200 }, sprite);
+    //m_map.add_tile({ 50, 250 }, sprite);
 
-   
     
-
+    m_render.set_map(m_map.get_to_render({ 0, 0 }, { 1366, 768 }));
     while (window.get()->isOpen())
     {
         sf::Event event;
@@ -41,7 +48,8 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.get()->close();
         }
-        m_render.update(m_map.get_to_render({ 0, 0 }, {1366, 768}));
+       
+        m_render.update();
     }
 
     return 0;

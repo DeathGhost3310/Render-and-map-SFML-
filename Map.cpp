@@ -33,7 +33,7 @@ void Map::delete_tile(sf::Vector2i cord) {
 	
 }
 
-void Map::add_tile(sf::Vector2i cord, sf::Sprite *sprite) {
+void Map::add_tile(sf::Vector2f cord, sf::Sprite sprite) {
 	m_tiles.push_back(std::make_shared<Tile>(Tile( cord, sprite )));
 }
 
@@ -41,16 +41,17 @@ int Map::get_size() {
 	return m_tiles.size() + m_walls.size();
 }
 
-std::vector<Tile> Map::get_to_render
+std::vector<std::shared_ptr<Tile>> Map::get_to_render
 (sf::Vector2i render_start_pos, sf::Vector2i render_end_pos)
 {
-	std::vector<Tile> tiles_to_render;
-	for (auto tile : m_tiles) {
+	std::vector<std::shared_ptr<Tile>> tiles_to_render;
+	
+	/*for (std::shared_ptr<Tile> tile : m_tiles) {
 		if (tile.get()->get_cord().x >= render_start_pos.x
 			&& tile.get()->get_cord().y >= render_start_pos.y
 				&& tile.get()->get_cord().x < render_end_pos.x
 				&& tile.get()->get_cord().y < render_end_pos.y) 
-					tiles_to_render.push_back(*tile);
+					tiles_to_render.push_back(tile);
 	}
 	if (m_walls.size() > 0) {
 		for (auto wall : m_walls) {
@@ -58,9 +59,9 @@ std::vector<Tile> Map::get_to_render
 				&& wall.get()->get_cord().y > render_start_pos.y
 				&& wall.get()->get_cord().x < render_end_pos.x
 				&& wall.get()->get_cord().y < render_end_pos.y)
-				tiles_to_render.push_back(*wall);
+				tiles_to_render.push_back(wall);
 		}
-	}
+	}*/
 
-	return tiles_to_render;
+	return m_tiles;
 }

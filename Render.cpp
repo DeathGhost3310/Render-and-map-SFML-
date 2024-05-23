@@ -11,41 +11,41 @@ Render::Render(std::shared_ptr<sf::RenderWindow> window)
 	
 }
 
-std::vector<Tile> Render::make_frame(std::vector<Tile> tiles_to_render) {
-	std::vector<Tile> frame;
-	for (auto tile : tiles_to_render) {
+void Render::make_frame() {
+	
+	for (std::shared_ptr<Tile> tile : frame) {
 		sf::Vector2f scaling_factor = { 1, 1 };
-		if (r_cord_end_pos.x - tile.get_cord().x < tile_size_x) {
-			scaling_factor.x = m_width / tile.get_cord().x;
+		if (r_cord_end_pos.x - tile.get()->get_cord().x < tile_size_x) {
+			scaling_factor.x = m_width / tile.get()->get_cord().x;
 			
-			tile.setScale(scaling_factor);
-			
-		}
-		if (r_cord_end_pos.y - tile.get_cord().y < tile_size_y) {
-			scaling_factor.y = m_height / tile.get_cord().y;
-
-			tile.setScale(scaling_factor);
+			tile.get()->setScale(scaling_factor);
 			
 		}
+		if (r_cord_end_pos.y - tile.get()->get_cord().y < tile_size_y) {
+			scaling_factor.y = m_height / tile.get()->get_cord().y;
 
-		tile.get_sprite().setPosition(sf::Vector2f(tile.get_cord()));
-		frame.push_back(tile);
+			tile.get()->setScale(scaling_factor);
+			
+		}
+
+		tile.get()->get_sprite().setPosition(sf::Vector2f(tile.get()->get_cord()));
+		
 	}
 	
-	return frame;
 }
 
-void Render::draw_frame(std::vector<Tile> frame) {
-	for (auto tile : frame) {
-		m_window.get()->draw(tile.get_sprite());
+void Render::draw_frame() {
+	for (std::shared_ptr<Tile> tile : frame) {
+		tile.get()->get_sprite().setPosition(sf::Vector2f( tile.get()->get_cord().x, tile.get()->get_cord().y));
+		m_window.get()->draw(tile.get()->get_sprite());
 	}
 }
 
-void Render::update(std::vector<Tile> tiles_to_render) {
+void Render::update() {
 	m_window.get()->clear();
 	
-	auto frame = make_frame(tiles_to_render);
-	draw_frame(frame);
+	
+	draw_frame();
 
 	m_window.get()->display();
 }
@@ -56,4 +56,8 @@ sf::Vector2i Render::get_start_pos() {
 
 sf::Vector2i Render::get_end_pos() {
 	return r_cord_end_pos;
+}
+
+void Render::set_map(std::vector<std::shared_ptr<Tile>> tiles_to_render) {
+	frame = tiles_to_render;
 }
