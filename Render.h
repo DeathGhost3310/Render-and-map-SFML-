@@ -1,3 +1,7 @@
+#ifndef RENDER_H
+#define RENDER_H
+
+
 #include <string>
 #include <vector>
 #include <memory>
@@ -9,9 +13,10 @@ class Render
 {
 public:
 	Render(std::shared_ptr<sf::RenderWindow> window);
-	~Render();
+	//~Render();
 	void update(std::vector<Tile> tiles_to_render);
-	
+	sf::Vector2i get_start_pos();
+	sf::Vector2i get_end_pos();
 private:
 	std::vector<Tile> make_frame(std::vector<Tile> tiles_to_render);
 	void draw_frame(std::vector<Tile> frame);
@@ -24,3 +29,4 @@ private:
 	unsigned int m_height;
 };
 
+#endif

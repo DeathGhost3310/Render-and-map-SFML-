@@ -1,9 +1,9 @@
 #include "Tile.h"
 
 
-Tile::~Tile() {
-	delete m_sprite;
-}
+//Tile::~Tile() {
+//	delete m_sprite;
+//}
 
 Tile::Tile(sf::Vector2i cord, sf::Sprite *sprite)
 : m_cord(cord), m_sprite(sprite), m_rect(sprite->getTextureRect()) 

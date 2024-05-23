@@ -1,3 +1,6 @@
+#ifndef MAP_H
+#define MAP_H
+
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <memory>
@@ -10,7 +13,7 @@ class Map
 {
 public:
 	Map();
-	~Map();
+	//~Map();
 	std::shared_ptr<Tile> get_tile(sf::Vector2i cord);
 	std::shared_ptr<Tile> get_wall(sf::Vector2i cord);
 	void add_tile(sf::Vector2i cord, sf::Sprite *sprite);
@@ -23,3 +26,4 @@ private:
 	std::vector<std::shared_ptr<Tile>> m_walls;
 };
 
+#endif

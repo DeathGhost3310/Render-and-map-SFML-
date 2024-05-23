@@ -1,3 +1,6 @@
+#ifndef TILE_H
+#define TILE_H
+
 #include <SFML/Graphics.hpp>
 
 #pragma once
@@ -6,7 +9,7 @@ class Tile
 {
 public:
 	Tile(sf::Vector2i cord, sf::Sprite *sprite);
-	~Tile();
+	/*~Tile();*/
 	sf::Vector2i get_cord();
 	sf::Sprite get_sprite();
 	void setScale(sf::Vector2f scale);
@@ -17,3 +20,4 @@ private:
 	sf::IntRect m_rect;
 };
 
+#endif
